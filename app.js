@@ -16,12 +16,22 @@ con.connect(function (err) {
 });
 
 showEmployees();
+showDepts();
 
 function showEmployees() {
   const sql = 'SELECT * FROM employee';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log(result);
+    // console.log(result);
+    console.table(result);
+  });
+}
+
+function showDepts() {
+  const sql = 'SELECT * FROM department';
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    // console.log(result);
     console.table(result);
   });
 }
