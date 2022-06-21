@@ -15,10 +15,6 @@ con.connect(function (err) {
   console.log('Wow!');
 });
 
-// showEmployees();
-// showDepts();
-// showRoles();
-
 init();
 function init() {
   inquirer
@@ -91,18 +87,41 @@ function showRoles() {
   });
 }
 
+//-------------------------------------------------------------------------------
+
 function addEmp() {
-  inquirer.prompt([
-    {
+  // const sqlR = 'SELECT * FROM roles';
+  // con.query(sqlR, function (err, result) {
+  //   if (err) throw err;
+  //   // console.log(result);
+  //   console.table(result);
+  // })
+  inquirer
+    .prompt([
+      {
         type: 'input',
-        name: 'choices',
-        message: 'Choose an option',
-        choices: [
-    }
-  ])
-  const sql =
-    'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("", "", 3, 4)';
+        name: 'first_name',
+        message: "Enter the employee's first name",
+      },
+      {
+        type: 'input',
+        name: 'last_name',
+        message: "Enter the employee's last name",
+      },
+      {
+        type: 'list',
+        name: 'chooseRole',
+        message: "Choose the employee's Role",
+        choices: ['engineer'],
+      },
+    ])
+    .then(function (choices) {
+      console.log(choices);
+    });
+  // const sql =
+  //   'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("", "", 3, 4)';
 }
+
 function addRole() {
   const sql =
     'INSERT INTO roles (title, salary, department_id) VALUES ("", "", 1)';
@@ -111,5 +130,6 @@ function addDept() {
   const sql = 'INSERT INTO department (name) VALUES ("")';
 }
 function updateRole() {
-  const sql = 'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
+  const sql =
+    'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
 }
