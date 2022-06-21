@@ -91,7 +91,25 @@ function showRoles() {
   });
 }
 
-function addRole() {}
-function addDept() {}
-function addEmp() {}
-function updateRole() {}
+function addEmp() {
+  inquirer.prompt([
+    {
+        type: 'input',
+        name: 'choices',
+        message: 'Choose an option',
+        choices: [
+    }
+  ])
+  const sql =
+    'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("", "", 3, 4)';
+}
+function addRole() {
+  const sql =
+    'INSERT INTO roles (title, salary, department_id) VALUES ("", "", 1)';
+}
+function addDept() {
+  const sql = 'INSERT INTO department (name) VALUES ("")';
+}
+function updateRole() {
+  const sql = 'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
+}
