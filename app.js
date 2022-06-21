@@ -93,9 +93,11 @@ function addEmp() {
   const sqlR = 'SELECT * FROM roles';
   con.query(sqlR, function (err, result) {
     if (err) throw err;
+    const roleArr = [];
     for (i = 0; i < result.length; i++) {
-      console.log(result[i].title);
+      roleArr.push(result[i].title);
     }
+    console.log(roleArr);
   });
   inquirer
     .prompt([
@@ -113,7 +115,7 @@ function addEmp() {
         type: 'list',
         name: 'chooseRole',
         message: "Choose the employee's Role",
-        choices: ['engineer'],
+        choices: [roleArr],
       },
     ])
     .then(function (choices) {
