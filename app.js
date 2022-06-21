@@ -98,29 +98,30 @@ function addEmp() {
       roleArr.push(result[i].title);
     }
     console.log(roleArr);
+
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'first_name',
+          message: "Enter the employee's first name",
+        },
+        {
+          type: 'input',
+          name: 'last_name',
+          message: "Enter the employee's last name",
+        },
+        {
+          type: 'list',
+          name: 'chooseRole',
+          message: "Choose the employee's Role",
+          choices: roleArr,
+        },
+      ])
+      .then(function (choices) {
+        console.log(choices.first_name, choices.last_name, choices.chooseRole);
+      });
   });
-  inquirer
-    .prompt([
-      {
-        type: 'input',
-        name: 'first_name',
-        message: "Enter the employee's first name",
-      },
-      {
-        type: 'input',
-        name: 'last_name',
-        message: "Enter the employee's last name",
-      },
-      {
-        type: 'list',
-        name: 'chooseRole',
-        message: "Choose the employee's Role",
-        choices: [roleArr],
-      },
-    ])
-    .then(function (choices) {
-      console.log(choices.first_name, choices.last_name, choices.chooseRole);
-    });
   // const sql =
   //   'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("", "", 3, 4)';
 }
