@@ -34,7 +34,7 @@ function init() {
           'Add a Department',
           'Add a Role',
           'Add an Employee',
-          'Update an Employee',
+          'Update an Employee Role',
         ],
       },
     ])
@@ -42,6 +42,24 @@ function init() {
       console.log(selection.choices);
       if (selection.choices === 'View all Employees') {
         showEmployees();
+      }
+      if (selection.choices === 'View all Departments') {
+        showDepts();
+      }
+      if (selection.choices === 'View all Roles') {
+        showRoles();
+      }
+      if (selection.choices === 'Add a Role') {
+        addRole();
+      }
+      if (selection.choices === 'Add a Department') {
+        addDept();
+      }
+      if (selection.choices === 'Add an Employee') {
+        addEmp();
+      }
+      if (selection.choices === 'Update an Employee Role') {
+        updateRole();
       }
     });
 }
@@ -72,3 +90,8 @@ function showRoles() {
     console.table(result);
   });
 }
+
+function addRole() {}
+function addDept() {}
+function addEmp() {}
+function updateRole() {}
