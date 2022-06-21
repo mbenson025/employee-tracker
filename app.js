@@ -90,12 +90,13 @@ function showRoles() {
 //-------------------------------------------------------------------------------
 
 function addEmp() {
-  // const sqlR = 'SELECT * FROM roles';
-  // con.query(sqlR, function (err, result) {
-  //   if (err) throw err;
-  //   // console.log(result);
-  //   console.table(result);
-  // })
+  const sqlR = 'SELECT * FROM roles';
+  con.query(sqlR, function (err, result) {
+    if (err) throw err;
+    for (i = 0; i < result.length; i++) {
+      console.log(result[i].title);
+    }
+  });
   inquirer
     .prompt([
       {
@@ -116,7 +117,7 @@ function addEmp() {
       },
     ])
     .then(function (choices) {
-      console.log(choices);
+      console.log(choices.first_name, choices.last_name, choices.chooseRole);
     });
   // const sql =
   //   'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("", "", 3, 4)';
