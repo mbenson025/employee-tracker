@@ -38,8 +38,11 @@ function init() {
         ],
       },
     ])
-    .then(function (choices) {
-      console.log(choices);
+    .then(function (selection) {
+      console.log(selection.choices);
+      if (selection.choices === 'View all Employees') {
+        showEmployees();
+      }
     });
 }
 
