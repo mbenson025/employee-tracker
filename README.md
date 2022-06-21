@@ -35,9 +35,9 @@
 ## Technologies Used
 
 - [Node.js](https://nodejs.org/en/)
-- [mysql2](https://expressjs.com/)
-- [inquirer](https://www.npmjs.com/package/uuid)
-- [console.table](https://www.npmjs.com/package/uuid)
+- [mysql2](https://www.npmjs.com/package/mysql2)
+- [inquirer](https://www.npmjs.com/package/inquirer)
+- [console.table](https://www.npmjs.com/package/console.table)
 
 ## Questions
 
