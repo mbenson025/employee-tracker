@@ -1,0 +1,24 @@
+{
+  "name": "emp-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbenson025/employee-tracker.git"
+  },
+  "author": "mason",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mbenson025/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/mbenson025/employee-tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^9.0.0",
+    "mysql2": "^2.3.3"
+  }
+}
