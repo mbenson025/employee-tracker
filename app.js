@@ -6,19 +6,22 @@ const ct = require('console.table');
 const con = mysql.createConnection({
   host: 'localhost',
   user: 'runSQL',
-  // database: 'test',
+  password: '123',
+  database: 'employee_db',
 });
 
 con.connect(function (err) {
   if (err) throw err;
-  console.log('Connected!');
+  console.log('Wow!');
 });
 
-// simple query
-con.query(
-  'SELECT * FROM `table` WHERE `name` = "Page" AND `age` > 45',
-  function (err, results, fields) {
-    console.log(results); // results contains rows returned by server
-    console.log(fields); // fields contains extra meta data about results, if available
-  }
-);
+showEmployees();
+
+function showEmployees() {
+  const sql = 'SELECT * FROM employee';
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log(result);
+    console.table(result);
+  });
+}

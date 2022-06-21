@@ -12,16 +12,16 @@ VALUES ("Paul", "Allen", 1, 1),
 
 INSERT INTO roles (title, salary, department_id)
 VALUES ( "Executive Manager", 600000, 1 ),
-       ( "Vice President", 450000, 1 ),
-       ( "Engineer", 250000, 6),
-       ( "Assistant", 60000, 3),
-       ( "Developer", 90000, 7);
+      ( "Vice President", 450000, 1 ),
+      ( "Engineer", 250000, 6),
+      ( "Assistant", 60000, 3),
+      ( "Developer", 90000, 7);
 
 INSERT INTO department (name)
-VALUES ( "Mergers and Aquisitions"),
-       ( "Finance"),
-       ( "Human Resources"),
-       ( "Research"),
-       ( "Quality Management"),
-       ( "Production"),
-       ( "Development");
+VALUES ( "Mergers and Acquisitions"),
+      ( "Finance"),
+      ( "Human Resources"),
+      ( "Research"),
+      ( "Quality Management"),
+      ( "Production"),
+      ( "Development");
