@@ -131,10 +131,15 @@ function addEmp() {
           choices.chooseRole,
           choices.manager_id
         );
+
+        const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (${choices.first_name},${choices.last_name},${choices.chooseRole},${choices.manager_id})`;
+
+        con.query(sql, function (err, result) {
+          if (err) throw err;
+          console.table(result);
+        });
       });
   });
-  // const sql =
-  //   'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("", "", 3, 4)';
 }
 
 function addRole() {
