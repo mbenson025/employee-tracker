@@ -117,9 +117,20 @@ function addEmp() {
           message: "Choose the employee's Role",
           choices: roleArr,
         },
+        //manager_id must be integer for field value
+        {
+          type: 'input',
+          name: 'manager_id',
+          message: "Enter the employee's manager ID(if applicable)",
+        },
       ])
       .then(function (choices) {
-        console.log(choices.first_name, choices.last_name, choices.chooseRole);
+        console.log(
+          choices.first_name,
+          choices.last_name,
+          choices.chooseRole,
+          choices.manager_id
+        );
       });
   });
   // const sql =
