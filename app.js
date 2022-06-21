@@ -20,7 +20,28 @@ con.connect(function (err) {
 // showRoles();
 
 init();
-function init() {}
+function init() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        name: 'choices',
+        message: 'Choose an option',
+        choices: [
+          'View all Employees',
+          'View all Departments',
+          'View all Roles',
+          'Add a Department',
+          'Add a Role',
+          'Add an Employee',
+          'Update an Employee',
+        ],
+      },
+    ])
+    .then(function (choices) {
+      console.log(choices);
+    });
+}
 
 function showEmployees() {
   const sql = 'SELECT * FROM employee';
