@@ -55,7 +55,7 @@ function init() {
         addEmp();
       }
       if (selection.choices === 'Update an Employee Role') {
-        updateRole();
+        updateRoleName();
       }
     });
 }
@@ -220,7 +220,7 @@ function addDept() {
     });
 }
 
-function updateRole() {
+function updateRoleName() {
   const sqlUrole = 'SELECT * FROM employee';
   con.query(sqlUrole, function (err, result) {
     if (err) throw err;
@@ -241,13 +241,34 @@ function updateRole() {
           message: 'Choose an employee to update their role',
           choices: uroleArr,
         },
+      ])
+      .then(function (choices) {
+        console.log(choices);
+        return updateEmpRole();
+      });
+  });
+}
 
-        // {
-        //   type: 'list',
-        //   name: 'dep_id',
-        //   message: 'Department. Choose one',
-        //   choices: depArr,
-        // },
+function updateEmpRole() {
+  const sqlR = 'SELECT * FROM roles';
+  con.query(sqlR, function (err, result) {
+    if (err) throw err;
+    const roleArr = [];
+    for (i = 0; i < result.length; i++) {
+      roleTitle = result[i].title;
+      roleID = result[i].id;
+      console.log(roleTitle, roleID);
+      roleArr.push({ name: roleTitle, value: roleID });
+    }
+    console.log(roleArr);
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'employee_role',
+          message: 'Choose a role',
+          choices: roleArr,
+        },
       ])
       .then(function (choices) {
         console.log(choices);
