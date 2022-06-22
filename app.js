@@ -233,29 +233,24 @@ function updateRole() {
     }
     console.log(uroleArr);
 
-    // inquirer
-    //   .prompt([
-    //     {
-    //       type: 'list',
-    //       name: 'emp_id',
-    //       message: '',
-    //       choices: depArr,
-    //     },
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'employee_name',
+          message: 'Choose an employee to update their role',
+          choices: uroleArr,
+        },
 
-    //     {
-    //       type: 'list',
-    //       name: 'dep_id',
-    //       message: 'Department. Choose one',
-    //       choices: depArr,
-    //     },
-    //   ])
-    //   .then(function (choices) {
-    //     console.log(
-    //       choices.first_name,
-    //       choices.last_name,
-    //       choices.role_id,
-    //       choices.manager_id
-    //     );
-    //   });
+        // {
+        //   type: 'list',
+        //   name: 'dep_id',
+        //   message: 'Department. Choose one',
+        //   choices: depArr,
+        // },
+      ])
+      .then(function (choices) {
+        console.log(choices);
+      });
   });
 }
