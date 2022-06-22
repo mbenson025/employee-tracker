@@ -199,9 +199,28 @@ function addRole() {
   });
 }
 function addDept() {
-  // const sql = 'INSERT INTO department (name) VALUES ("")';
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'dep_name',
+        message: 'Enter the name of the department you would like to add',
+      },
+    ])
+    .then(function (input) {
+      console.log(input);
+
+      const sqlDep = con.query('INSERT INTO department SET ?', {
+        name: input.dep_name,
+      });
+      con.query(sqlDep, function (err, result) {
+        if (err) throw err;
+        console.table(result);
+      });
+    });
 }
-function updateRole() {
-  // const sql =
-  //   'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
-}
+
+// function updateRole() {
+// const sql =
+//   'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
+// }
