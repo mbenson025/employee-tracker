@@ -156,13 +156,13 @@ function addRole() {
     if (err) throw err;
     const depArr = [];
     for (i = 0; i < result.length; i++) {
-      console.log(result);
+      // console.log(result);
       depName = result[i].name;
       depID = result[i].id;
-      console.log(depName, depID);
+      // console.log(depName, depID);
       depArr.push({ name: depName, value: depID });
     }
-    console.log(depArr);
+    // console.log(depArr);
     inquirer
       .prompt([
         {
@@ -183,11 +183,20 @@ function addRole() {
         },
       ])
       .then(function (choices) {
-        console.log(choices);
+        // console.log(choices);
+        console.log(choices.role_name, choices.role_salary, choices.dep_id);
+
+        const sqlAr = con.query('INSERT INTO roles SET ?', {
+          title: choices.role_name,
+          salary: choices.role_salary,
+          department_id: choices.dep_id,
+        });
+        con.query(sqlAr, function (err, result) {
+          if (err) throw err;
+          console.table(result);
+        });
       });
   });
-  // const sql =
-  //   'INSERT INTO roles (title, salary, department_id) VALUES ("", "", 1)';
 }
 function addDept() {
   // const sql = 'INSERT INTO department (name) VALUES ("")';
