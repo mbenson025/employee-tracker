@@ -242,14 +242,14 @@ function updateRoleName() {
           choices: uroleArr,
         },
       ])
-      .then(function (choices) {
-        console.log(choices);
-        return updateEmpRole();
+      .then(function (nameChoices) {
+        console.log(nameChoices);
+        return updateEmpRole(nameChoices);
       });
   });
 }
 
-function updateEmpRole() {
+function updateEmpRole(nameChoices) {
   const sqlR = 'SELECT * FROM roles';
   con.query(sqlR, function (err, result) {
     if (err) throw err;
@@ -270,8 +270,23 @@ function updateEmpRole() {
           choices: roleArr,
         },
       ])
-      .then(function (choices) {
-        console.log(choices);
+      .then(function (roleChoices) {
+        console.log(roleChoices);
+        return updateEmpManager(nameChoices, roleChoices);
       });
   });
+}
+
+function updateEmpManager(nameChoices, roleChoices) {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'manager_id',
+        message: 'Enter the manager ID for this employee',
+      },
+    ])
+    .then(function (managerOption) {
+      console.log(nameChoices, roleChoices, managerOption);
+    });
 }
