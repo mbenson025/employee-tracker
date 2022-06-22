@@ -289,4 +289,10 @@ function updateEmpManager(nameChoices, roleChoices) {
     .then(function (managerOption) {
       console.log(nameChoices, roleChoices, managerOption);
     });
+  const sqlUpdate = con.query('UPDATE employee SET ?', {
+    first_name: choices.first_name,
+    last_name: choices.last_name,
+    role_id: choices.role_id,
+    manager_id: choices.manager_id,
+  });
 }
