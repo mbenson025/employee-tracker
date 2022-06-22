@@ -151,13 +151,48 @@ function addEmp() {
 }
 
 function addRole() {
-  const sql =
-    'INSERT INTO roles (title, salary, department_id) VALUES ("", "", 1)';
+  const sqlA = 'SELECT * FROM department';
+  con.query(sqlA, function (err, result) {
+    if (err) throw err;
+    const depArr = [];
+    for (i = 0; i < result.length; i++) {
+      console.log(result);
+      depName = result[i].name;
+      depID = result[i].id;
+      console.log(depName, depID);
+      depArr.push({ name: depName, value: depID });
+    }
+    console.log(depArr);
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'role_name',
+          message: 'Enter the name of the role you want to add',
+        },
+        {
+          type: 'input',
+          name: 'role_salary',
+          message: 'Enter the salary for the role',
+        },
+        {
+          type: 'list',
+          name: 'dep_id',
+          message: 'Department. Choose one',
+          choices: depArr,
+        },
+      ])
+      .then(function (choices) {
+        console.log(choices);
+      });
+  });
+  // const sql =
+  //   'INSERT INTO roles (title, salary, department_id) VALUES ("", "", 1)';
 }
 function addDept() {
-  const sql = 'INSERT INTO department (name) VALUES ("")';
+  // const sql = 'INSERT INTO department (name) VALUES ("")';
 }
 function updateRole() {
-  const sql =
-    'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
+  // const sql =
+  //   'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
 }
