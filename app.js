@@ -220,7 +220,42 @@ function addDept() {
     });
 }
 
-// function updateRole() {
-// const sql =
-//   'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
-// }
+function updateRole() {
+  const sqlUrole = 'SELECT * FROM employee';
+  con.query(sqlUrole, function (err, result) {
+    if (err) throw err;
+    const uroleArr = [];
+    for (i = 0; i < result.length; i++) {
+      firstName = result[i].first_name;
+      lastName = result[i].last_name;
+      console.log(firstName, lastName);
+      uroleArr.push({ name: `${firstName} ${lastName}` });
+    }
+    console.log(uroleArr);
+
+    // inquirer
+    //   .prompt([
+    //     {
+    //       type: 'list',
+    //       name: 'emp_id',
+    //       message: '',
+    //       choices: depArr,
+    //     },
+
+    //     {
+    //       type: 'list',
+    //       name: 'dep_id',
+    //       message: 'Department. Choose one',
+    //       choices: depArr,
+    //     },
+    //   ])
+    //   .then(function (choices) {
+    //     console.log(
+    //       choices.first_name,
+    //       choices.last_name,
+    //       choices.role_id,
+    //       choices.manager_id
+    //     );
+    //   });
+  });
+}
