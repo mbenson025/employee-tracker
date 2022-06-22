@@ -95,7 +95,10 @@ function addEmp() {
     if (err) throw err;
     const roleArr = [];
     for (i = 0; i < result.length; i++) {
-      roleArr.push(result[i].title);
+      roleTitle = result[i].title;
+      roleID = result[i].id;
+      console.log(roleTitle, roleID);
+      roleArr.push({ name: roleTitle, value: roleID });
     }
     console.log(roleArr);
 
@@ -113,7 +116,7 @@ function addEmp() {
         },
         {
           type: 'list',
-          name: 'chooseRole',
+          name: 'role_id',
           message: "Choose the employee's Role",
           choices: roleArr,
         },
@@ -128,7 +131,7 @@ function addEmp() {
         console.log(
           choices.first_name,
           choices.last_name,
-          choices.chooseRole,
+          choices.role_id,
           choices.manager_id
         );
 
