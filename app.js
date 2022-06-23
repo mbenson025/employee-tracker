@@ -228,10 +228,13 @@ function updateRoleName() {
     for (i = 0; i < result.length; i++) {
       firstName = result[i].first_name;
       lastName = result[i].last_name;
-      console.log(firstName, lastName);
-      uroleArr.push({ name: `${firstName} ${lastName}` });
+      // console.log(firstName, lastName);
+      uroleArr.push({
+        name: `${firstName} ${lastName}`,
+        value: { firstName, lastName },
+      });
     }
-    console.log(uroleArr);
+    // console.log(uroleArr);
 
     inquirer
       .prompt([
@@ -243,6 +246,7 @@ function updateRoleName() {
         },
       ])
       .then(function (nameChoices) {
+        // console.log(nameChoices);
         console.log(nameChoices);
         return updateEmpRole(nameChoices);
       });
@@ -257,10 +261,10 @@ function updateEmpRole(nameChoices) {
     for (i = 0; i < result.length; i++) {
       roleTitle = result[i].title;
       roleID = result[i].id;
-      console.log(roleTitle, roleID);
+      // console.log(roleTitle, roleID);
       roleArr.push({ name: roleTitle, value: roleID });
     }
-    console.log(roleArr);
+    // console.log(roleArr);
     inquirer
       .prompt([
         {
@@ -271,7 +275,7 @@ function updateEmpRole(nameChoices) {
         },
       ])
       .then(function (roleChoices) {
-        console.log(roleChoices);
+        // console.log(roleChoices);
         return updateEmpManager(nameChoices, roleChoices);
       });
   });
@@ -288,11 +292,16 @@ function updateEmpManager(nameChoices, roleChoices) {
     ])
     .then(function (managerOption) {
       console.log(nameChoices, roleChoices, managerOption);
+      console.log(nameChoices.employee_name.firstName);
+
+      const sqlUpdate = `UPDATE employee SET role_id = ?  WHERE last_name = ?`;
+      const empVals = [
+        roleChoices.employee_role,
+        nameChoices.employee_name.lastName,
+      ];
+      con.query(sqlUpdate, empVals, (err, response) => {
+        if (err) throw err;
+        console.log(response);
+      });
     });
-  const sqlUpdate = con.query('UPDATE employee SET ?', {
-    first_name: choices.first_name,
-    last_name: choices.last_name,
-    role_id: choices.role_id,
-    manager_id: choices.manager_id,
-  });
 }
