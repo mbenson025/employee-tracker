@@ -1,7 +1,7 @@
-const mysql = require('mysql2');
-const inquirer = require('inquirer');
-const ct = require('console.table');
-// const chalk = require('chalk');
+import mysql from 'mysql2';
+import inquirer from 'inquirer';
+import ct from 'console.table';
+import chalk from 'chalk';
 
 // create the connection to database
 const con = mysql.createConnection({
@@ -13,7 +13,7 @@ const con = mysql.createConnection({
 
 con.connect(function (err) {
   if (err) throw err;
-  console.log('Wow!');
+  console.log(chalk.blue.bgRed.bold('Wow!'));
 });
 
 init();
