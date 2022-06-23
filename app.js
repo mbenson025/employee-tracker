@@ -61,7 +61,8 @@ function init() {
 }
 
 function showEmployees() {
-  const sql = 'SELECT * FROM employee';
+  const sql =
+    'SELECT employee.id, employee.first_name, employee.last_name, employee.manager_id, roles.salary, roles.title, department.name FROM employee LEFT JOIN roles ON roles.id = employee.role_id LEFT JOIN department ON department.id = roles.department_id';
   con.query(sql, function (err, result) {
     if (err) throw err;
     // console.log(result);
