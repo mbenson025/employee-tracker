@@ -2,6 +2,7 @@ import mysql from 'mysql2';
 import inquirer from 'inquirer';
 import ct from 'console.table';
 import chalk from 'chalk';
+import figlet from 'figlet';
 
 // create the connection to database
 const con = mysql.createConnection({
@@ -13,7 +14,26 @@ const con = mysql.createConnection({
 
 con.connect(function (err) {
   if (err) throw err;
-  console.log(chalk.blue.bgRed.bold('Wow!'));
+  console.log('wow!');
+  // console.log('     ');
+  // figlet.text(
+  //   'employee tracker',
+  //   {
+  //     font: 'Ghost',
+  //     horizontalLayout: 'default',
+  //     verticalLayout: 'default',
+  //     width: 80,
+  //     whitespaceBreak: true,
+  //   },
+  //   function (err, data) {
+  //     if (err) {
+  //       console.log('Something went wrong...');
+  //       console.dir(err);
+  //       return;
+  //     }
+  //     console.log(data);
+  //   }
+  // );
 });
 
 init();
@@ -63,7 +83,7 @@ function init() {
 
 function showEmployees() {
   const sql =
-    'SELECT employee.id, employee.first_name, employee.last_name, employee.manager_id, roles.salary, roles.title, department.name FROM employee LEFT JOIN roles ON roles.id = employee.role_id LEFT JOIN department ON department.id = roles.department_id';
+    'SELECT employee.id AS "ID #", employee.first_name AS "First Name", employee.last_name AS "Last Name", roles.salary AS "$alary", roles.title AS "Title", department.name AS "Department", CONCAT(manager.first_name,manager.last_name) AS "Manager", employee.manager_id AS "Manager ID #"  FROM employee LEFT JOIN roles ON roles.id = employee.role_id LEFT JOIN department ON department.id = roles.department_id LEFT JOIN employee manager ON manager.id = employee.manager_id';
   con.query(sql, function (err, result) {
     if (err) throw err;
     // console.log(result);
@@ -81,7 +101,8 @@ function showDepts() {
 }
 
 function showRoles() {
-  const sql = 'SELECT * FROM roles';
+  const sql =
+    'SELECT roles.id, roles.title, department.name, roles.salary  FROM roles LEFT JOIN department ON roles.department_id = department.id';
   con.query(sql, function (err, result) {
     if (err) throw err;
     // console.log(result);

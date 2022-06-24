@@ -1,14 +1,14 @@
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Paul", "Allen", 1, 1),
-      ("Patrick", "Bateman", 1, 2),
-      ("Timothy", "Bryce", 4, 3),
-      ("Donald", "Kimball", 5, 4),
-      ("Harold", "Cranes", 2, 5),
-      ("Luis", "Carruthers", 3, null),
-      ("Craig", "McDermott", 4, null),
-      ("Evelyn", "Williams", 5, null),
+VALUES ("Paul", "Allen", 1, 4),
+      ("Patrick", "Bateman", 1, 9),
+      ("Timothy", "Bryce", 4, null),
+      ("Donald", "Kimball", 5, null),
+      ("Harold", "Cranes", 2, 3),
+      ("Luis", "Carruthers", 3, 4),
+      ("Craig", "McDermott", 4, 9),
+      ("Evelyn", "Williams", 5, 3),
       ("David", "VanPatten", 2, null),
-      ("Courtney", "Rawlinson", 3, null);
+      ("Courtney", "Rawlinson", 3, 9);
 
 INSERT INTO roles (title, salary, department_id)
 VALUES ( "Executive Manager", 600000, 1 ),
