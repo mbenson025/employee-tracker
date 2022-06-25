@@ -1,12 +1,10 @@
-# Note Taker
+# Employee Tracker
 
 ![GitHub](https://img.shields.io/github/license/mbenson025/employee-tracker)
 ![GitHub language count](https://img.shields.io/github/languages/count/mbenson025/employee-tracker)
 ![GitHub top language](https://img.shields.io/github/languages/top/mbenson025/employee-tracker)
 
 <br>
-
-<!-- [Deployed Heroku App](https://note-taker-mbenson.herokuapp.com/) -->
 
 ## Table of Contents
 
