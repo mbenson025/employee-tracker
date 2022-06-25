@@ -409,6 +409,47 @@ function deleteRole() {
           roleChoices.employee_role,
           (err, response) => {
             console.log('Role deleted!');
+            init();
+          }
+        );
+      });
+  });
+}
+
+function deleteEmp() {
+  const sqlE = 'SELECT * FROM employee';
+  con.query(sqlE, function (err, result) {
+    if (err) throw err;
+    const empArr = [];
+    for (i = 0; i < result.length; i++) {
+      firstName = result[i].first_name;
+      lastName = result[i].last_name;
+      empID = result[i].id;
+      empArr.push({
+        name: `${firstName} ${lastName}`,
+        value: `${empID}`,
+      });
+    }
+
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'employee_name',
+          message: 'Choose an employee to terminate',
+          choices: empArr,
+        },
+      ])
+      .then(function (choices) {
+        console.log(choices);
+
+        con.query(
+          'DELETE FROM employee WHERE id = ?',
+          choices.employee_name,
+          (err, response) => {
+            if (err) throw err;
+            console.log('Employee terminated!');
+            init();
           }
         );
       });
