@@ -50,6 +50,9 @@ function init() {
           'Add a Role',
           'Add an Employee',
           'Update an Employee Role',
+          'Delete a Department',
+          'Delete a Role',
+          'Delete an Employee',
         ],
       },
     ])
@@ -75,6 +78,15 @@ function init() {
       }
       if (selection.choices === 'Update an Employee Role') {
         updateRoleName();
+      }
+      if (selection.choices === 'Delete a Department') {
+        deleteDep();
+      }
+      if (selection.choices === 'Delete a Role') {
+        deleteRole();
+      }
+      if (selection.choices === 'Delete an Employee') {
+        deleteEmp();
       }
     });
 }
@@ -330,5 +342,75 @@ function updateTable(nameChoices, roleChoices) {
   con.query(sqlUpdate, empVals, (err, response) => {
     if (err) throw err;
     console.log('Employee role has been successfully changed');
+  });
+}
+
+//-------------------------------------------
+//--------DELETE FUNCTIONS-------------------
+//-------------------------------------------
+
+function deleteDep() {
+  const sqlA = 'SELECT * FROM department';
+  con.query(sqlA, function (err, result) {
+    if (err) throw err;
+    const depArr = [];
+    for (i = 0; i < result.length; i++) {
+      depName = result[i].name;
+      depID = result[i].id;
+      depArr.push({ name: depName, value: depID });
+    }
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'dep_id',
+          message: 'Choose a department',
+          choices: depArr,
+        },
+      ])
+      .then(function (choices) {
+        console.log(choices.role_name, choices.role_salary, choices.dep_id);
+
+        con.query(
+          'DELETE FROM department WHERE id=?',
+          choices.dep_id,
+          (err, response) => {
+            if (err) throw err;
+            console.log('Department Deleted!');
+            init();
+          }
+        );
+      });
+  });
+}
+
+function deleteRole() {
+  const sqlR = 'SELECT * FROM roles';
+  con.query(sqlR, function (err, result) {
+    if (err) throw err;
+    const roleArr = [];
+    for (i = 0; i < result.length; i++) {
+      roleTitle = result[i].title;
+      roleID = result[i].id;
+      roleArr.push({ name: roleTitle, value: roleID });
+    }
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'employee_role',
+          message: 'Choose a role to delete',
+          choices: roleArr,
+        },
+      ])
+      .then(function (roleChoices) {
+        con.query(
+          'DELETE FROM roles WHERE id=?',
+          roleChoices.employee_role,
+          (err, response) => {
+            console.log('Role deleted!');
+          }
+        );
+      });
   });
 }
