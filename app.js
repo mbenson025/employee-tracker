@@ -24,7 +24,7 @@ con.connect((err) => {
     },
     function (err, data) {
       if (err) {
-        console.log('ascii art error');
+        console.log('ascii art text error');
       } else {
         console.log('           ');
         console.log(data);
@@ -96,13 +96,11 @@ function showEmployees() {
     'SELECT employee.id AS "ID #", employee.first_name AS "First Name", employee.last_name AS "Last Name", roles.salary AS "$alary", roles.title AS "Title", department.name AS "Department", CONCAT(manager.first_name,manager.last_name) AS "Manager", employee.manager_id AS "Manager ID #"  FROM employee LEFT JOIN roles ON roles.id = employee.role_id LEFT JOIN department ON department.id = roles.department_id LEFT JOIN employee manager ON manager.id = employee.manager_id';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    // console.log(result);
     console.table(result);
     init();
   });
 }
 
-//presented names and ids
 function showDepts() {
   const sql =
     'SELECT department.id AS "ID #", department.name AS "Department" FROM department';
@@ -119,7 +117,6 @@ function showRoles() {
     'SELECT roles.id AS "ID #", roles.title AS "Role", department.name AS "Department", roles.salary AS "Salary"  FROM roles LEFT JOIN department ON roles.department_id = department.id';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    // console.log(result);
     console.table(result);
     init();
   });
@@ -135,16 +132,13 @@ function chooseManager() {
     'SELECT first_name, last_name, id FROM employee WHERE manager_id IS NULL'),
     con.query(sqlM, function (err, response) {
       if (err) throw err;
-      // console.log(response);
       for (let i = 0; i < response.length; i++) {
-        // console.log(response[i].first_name, response[i].last_name);
         managerFirst = response[i].first_name;
         managerLast = response[i].last_name;
         managerArr.push({
           name: `${managerFirst} ${managerLast}`,
           value: response[i].id,
         });
-        // console.log(managerArr);
       }
     });
   return managerArr;
@@ -191,8 +185,6 @@ function addEmp() {
         },
       ])
       .then(function (choices) {
-        console.log(choices);
-
         con.query('INSERT INTO employee SET ?', {
           first_name: choices.first_name,
           last_name: choices.last_name,
@@ -349,9 +341,13 @@ function updateTable(nameChoices, roleChoices) {
 //--------DELETE FUNCTIONS-------------------
 //-------------------------------------------
 
+//-------------------------------------------
+//--------DELETE Department------------------
+//-------------------------------------------
+
 function deleteDep() {
-  const sqlA = 'SELECT * FROM department';
-  con.query(sqlA, function (err, result) {
+  const sqlD = 'SELECT * FROM department';
+  con.query(sqlD, function (err, result) {
     if (err) throw err;
     const depArr = [];
     for (i = 0; i < result.length; i++) {
@@ -364,25 +360,27 @@ function deleteDep() {
         {
           type: 'list',
           name: 'dep_id',
-          message: 'Choose a department',
+          message: 'Choose a department to delete',
           choices: depArr,
         },
       ])
       .then(function (choices) {
-        console.log(choices.role_name, choices.role_salary, choices.dep_id);
-
         con.query(
-          'DELETE FROM department WHERE id=?',
+          'DELETE FROM department WHERE id = ?',
           choices.dep_id,
           (err, response) => {
             if (err) throw err;
-            console.log('Department Deleted!');
+            console.log('Department deleted!');
             init();
           }
         );
       });
   });
 }
+
+//-------------------------------------------
+//--------DELETE Role------------------------
+//-------------------------------------------
 
 function deleteRole() {
   const sqlR = 'SELECT * FROM roles';
@@ -394,20 +392,24 @@ function deleteRole() {
       roleID = result[i].id;
       roleArr.push({ name: roleTitle, value: roleID });
     }
+
     inquirer
       .prompt([
         {
           type: 'list',
-          name: 'employee_role',
+          name: 'role_id',
           message: 'Choose a role to delete',
           choices: roleArr,
         },
       ])
-      .then(function (roleChoices) {
+      .then(function (choices) {
+        console.log(choices);
+
         con.query(
-          'DELETE FROM roles WHERE id=?',
-          roleChoices.employee_role,
+          'DELETE FROM roles WHERE id = ?',
+          choices.role_id,
           (err, response) => {
+            if (err) throw err;
             console.log('Role deleted!');
             init();
           }
@@ -416,11 +418,15 @@ function deleteRole() {
   });
 }
 
+//-------------------------------------------
+//--------DELETE Employee--------------------
+//-------------------------------------------
+const empArr = [];
 function deleteEmp() {
   const sqlE = 'SELECT * FROM employee';
   con.query(sqlE, function (err, result) {
     if (err) throw err;
-    const empArr = [];
+
     for (i = 0; i < result.length; i++) {
       firstName = result[i].first_name;
       lastName = result[i].last_name;
@@ -430,13 +436,14 @@ function deleteEmp() {
         value: `${empID}`,
       });
     }
+    console.log(empArr);
 
     inquirer
       .prompt([
         {
           type: 'list',
-          name: 'employee_name',
-          message: 'Choose an employee to terminate',
+          name: 'role_id',
+          message: 'Choose an Employee to terminate',
           choices: empArr,
         },
       ])
@@ -445,10 +452,10 @@ function deleteEmp() {
 
         con.query(
           'DELETE FROM employee WHERE id = ?',
-          choices.employee_name,
+          choices.role_id,
           (err, response) => {
             if (err) throw err;
-            console.log('Employee terminated!');
+            console.log('Employee deleted!');
             init();
           }
         );
