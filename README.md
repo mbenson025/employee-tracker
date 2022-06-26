@@ -51,6 +51,10 @@ node app.js
 ## Demo
 
 <br>
+
+[Full Video Demo](https://drive.google.com/file/d/1yIqOX--lV8A__oeqv3z-9nNMT06sUJdY/view)
+
+<br>
 Demo gif:
 
 <img src="assets/employeetracker.gif" alt="Demo of application" title="App Demo">
